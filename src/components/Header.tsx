@@ -18,7 +18,7 @@ export default async function Header() {
           href="/"
           className="text-sm font-semibold uppercase tracking-widest text-pink-600 transition-colors hover:text-pink-700 dark:text-pink-400 dark:hover:text-pink-300"
         >
-          Pink Zap Blog
+          Pinkzap Blog
         </Link>
         <SearchBox posts={searchPosts} />
       </div>

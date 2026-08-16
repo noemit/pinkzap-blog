@@ -81,21 +81,22 @@ export default async function PostPage({ params }: Props) {
                 {post.description}
               </p>
             )}
-            {post.tags.length > 0 && (
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="rounded-full bg-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            )}
           </header>
 
           <InteractivePost html={post.content} />
+
+          {post.tags.length > 0 && (
+            <ul className="mt-12 flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-full bg-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
         </article>
       </main>
 

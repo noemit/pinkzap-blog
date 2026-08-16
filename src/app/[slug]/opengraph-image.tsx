@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { getAllSlugs, getPost } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 
-export const alt = "Pink Zap Blog";
+export const alt = "Pinkzap Blog";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
