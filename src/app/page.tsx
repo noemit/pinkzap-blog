@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPostMeta } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 
 function formatDate(date: string): string {
@@ -11,15 +11,12 @@ function formatDate(date: string): string {
 }
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const posts = getAllPostMeta();
 
   return (
     <div className="flex flex-col flex-1 bg-zinc-50 font-sans dark:bg-black">
-      <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16 sm:py-24">
+      <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16 sm:py-20">
         <header className="mb-16">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-pink-600 dark:text-pink-400">
-            {siteConfig.name}
-          </p>
           <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
             {siteConfig.description}
           </h1>

@@ -23,6 +23,15 @@ export type Post = {
   content: string;
 };
 
+export type PostMeta = {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  readingTime: string;
+};
+
 type PostFrontmatter = {
   title: string;
   description?: string;
@@ -71,15 +80,29 @@ export async function getPost(slug: string): Promise<Post | null> {
   };
 }
 
-export async function getAllPosts(): Promise<Post[]> {
-  const slugs = fs
-    .readdirSync(contentDirectory)
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => file.replace(/\.md$/, ""));
+function readPostMeta(slug: string): PostMeta | null {
+  const fullPath = path.join(contentDirectory, `${slug}.md`);
+  if (!fs.existsSync(fullPath)) return null;
 
-  const posts = await Promise.all(slugs.map((slug) => getPost(slug)));
-  return posts
-    .filter((post): post is Post => post !== null)
+  const { data, content } = matter(fs.readFileSync(fullPath, "utf8"));
+  const frontmatter = data as PostFrontmatter;
+
+  if (!frontmatter.title || !frontmatter.date) return null;
+
+  return {
+    slug,
+    title: frontmatter.title,
+    description: frontmatter.description ?? "",
+    date: frontmatter.date,
+    tags: frontmatter.tags ?? [],
+    readingTime: readingTime(content),
+  };
+}
+
+export function getAllPostMeta(): PostMeta[] {
+  return getAllSlugs()
+    .map(readPostMeta)
+    .filter((post): post is PostMeta => post !== null)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
